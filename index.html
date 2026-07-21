@@ -625,7 +625,7 @@
   <div class="container">
 
     <!-- Code Generation Card -->
-    <div class="card" role="main">
+    <div class="card" id="codeGenCard" role="main">
       <div class="card-header">
         <div class="card-header-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="#00CC77" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -643,8 +643,8 @@
 
         <!-- Intro -->
         <p class="intro-text">
-          Thank you for completing the <strong>Nigeria FM Industry Maturity Survey 1.0</strong>, the first ISO 41001:2018 referenced benchmark of FM practice in Nigeria.
-          Your unique access code is shown below. Please copy and save it, you will need it to
+          Thank you for completing the <strong>Nigeria FM Industry Maturity Survey 1.0</strong>.
+          Your unique access code is shown below. Please copy and save it — you will need it to
           access the final <em>Nigeria FM Industry Maturity Report</em> when it is published.
         </p>
 
@@ -707,7 +707,7 @@
     </div><!-- /card -->
 
     <!-- Validate Section (hidden until REPORT_RELEASED = true) -->
-    <div class="card validate-section" id="validateSection" role="complementary" aria-label="Report access validation">
+    <div class="card validate-section" id="validateSection" role="main" aria-label="Report access validation">
       <div class="card-header">
         <div class="card-header-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="#00CC77" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -756,7 +756,7 @@
 <!-- ══════════════ FOOTER ══════════════ -->
 <footer>
   <strong>Nigeria FM Industry Maturity Survey</strong> — conducted by ISO FM Academy in partnership with the
-  Association of Facilities Management Practitioners, Nigeria (AFMPN).<br> Benchmarked against ISO 41001:2018.
+  Association of Facilities Management Practitioners, Nigeria (AFMPN).<br>
   No personal data is collected or stored by this page. All code generation occurs locally in your browser.
 </footer>
 
@@ -764,8 +764,8 @@
 <!-- ══════════════ SCRIPT ══════════════ -->
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────────
-const REPORT_RELEASED = true;                  // Set true when report is published
-const REPORT_URL      = 'https://github.com/isofmadmin/ngfmmaturity/releases/download/survey-v1%2C0/NIGERIA-FM-INDUSTRY-MATURITY-SURVEY-1.0-REPORT.pdf';                    // Replace with actual download URL
+const REPORT_RELEASED = false;                  // Set true when report is published
+const REPORT_URL      = '#';                    // Replace with actual download URL
 const SURVEY_SALT     = 'NGFM2025';
 const CODE_CHARS      = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No O,0,I,1
 
@@ -779,6 +779,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('codeDate').textContent = 'Generated: ' + formatDate(new Date());
 
   if (REPORT_RELEASED) {
+    // Hide code generation card entirely
+    document.getElementById('codeGenCard').style.display = 'none';
+    // Show validation card
     const vs = document.getElementById('validateSection');
     vs.classList.add('visible');
     document.getElementById('reportDownloadLink').href = REPORT_URL;
