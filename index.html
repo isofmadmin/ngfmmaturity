@@ -497,25 +497,53 @@
   .report-link-box p {
     font-size: 14px;
     color: #1A5534;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+  }
+
+  .report-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .report-link-box a {
-    display: inline-block;
-    background: var(--green);
-    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
-    padding: 12px 28px;
+    padding: 12px 26px;
     border-radius: 8px;
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    transition: background 0.2s;
+    transition: background 0.2s, border-color 0.2s;
   }
 
-  .report-link-box a:hover { background: #006B40; }
+  .report-link-box a svg { width: 17px; height: 17px; }
+
+  .report-btn-primary {
+    background: var(--green);
+    color: var(--white);
+    border: 1.5px solid var(--green);
+  }
+
+  .report-btn-primary:hover { background: #006B40; border-color: #006B40; }
+
+  .report-btn-secondary {
+    background: transparent;
+    color: var(--navy);
+    border: 1.5px solid var(--navy);
+  }
+
+  .report-btn-secondary:hover { background: rgba(10,46,110,0.06); }
+
+  @media (max-width: 420px) {
+    .report-actions { flex-direction: column; }
+    .report-link-box a { justify-content: center; }
+  }
 
   /* ═══════════ FOOTER ═══════════ */
   footer {
@@ -741,11 +769,26 @@
         <div class="validate-feedback" id="validateFeedback" role="alert" aria-live="polite"></div>
 
         <div class="report-link-box" id="reportLinkBox">
-          <p>✅ Your code is valid. Download the Nigeria FM Industry Maturity Report below.</p>
-          <a href="#" id="reportDownloadLink" target="_blank" rel="noopener noreferrer"
-             aria-label="Download Nigeria FM Industry Maturity Report PDF">
-            Download Report (PDF)
-          </a>
+          <p>✅ Your code is valid. View or download the Nigeria FM Industry Maturity Report below.</p>
+          <div class="report-actions">
+            <a href="#" id="reportViewLink" class="report-btn-secondary" target="_blank" rel="noopener noreferrer"
+               aria-label="View Nigeria FM Industry Maturity Report in browser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              View Report
+            </a>
+            <a href="#" id="reportDownloadLink" class="report-btn-primary" download target="_blank" rel="noopener noreferrer"
+               aria-label="Download Nigeria FM Industry Maturity Report PDF">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download (PDF)
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -765,7 +808,8 @@
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────────
 const REPORT_RELEASED = true;                  // Set true when report is published
-const REPORT_URL      = 'https://github.com/isofmadmin/ngfmmaturity/releases/download/survey-v1%2C0/NIGERIA-FM-INDUSTRY-MATURITY-SURVEY-1.0-REPORT.pdf';                    // Replace with actual download URL
+const REPORT_VIEW_URL = '#';                    // URL that opens the PDF inline in-browser
+const REPORT_URL      = '#';                    // URL that forces a download
 const SURVEY_SALT     = 'NGFM2025';
 const CODE_CHARS      = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No O,0,I,1
 
@@ -784,6 +828,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     // Show validation card
     const vs = document.getElementById('validateSection');
     vs.classList.add('visible');
+    document.getElementById('reportViewLink').href = REPORT_VIEW_URL;
     document.getElementById('reportDownloadLink').href = REPORT_URL;
   }
 });
